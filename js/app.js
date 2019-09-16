@@ -6,6 +6,8 @@ var resultEl = document.getElementById('results');
 
 var containerEl = document.getElementById('item-container');
 
+var canvasEl = document.getElementById('my-canvas');
+
 var filepathArr = ['img/bag.jpg', 'img/banana.jpg', 'img/bathroom.jpg', 'img/boots.jpg', 'img/breakfast.jpg', 'img/bubblegum.jpg', 'img/chair.jpg', 'img/cthulhu.jpg', 'img/dog-duck.jpg', 'img/dragon.jpg', 'img/pen.jpg', 'img/pet-sweep.jpg', 'img/scissors.jpg', 'img/shark.jpg', 'img/sweep.png', 'img/tauntaun.jpg', 'img/unicorn.jpg', 'img/usb.gif', 'img/water-can.jpg', 'img/wine-glass.jpg'];
 
 var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
@@ -85,7 +87,6 @@ function renderAllPictures() {
   }
 }
 
-// event handler
 function eventClick(e) {
   totalClick++;
   for (var i = 0; i < allItems.length; i++) {
@@ -96,6 +97,7 @@ function eventClick(e) {
   if (totalClick >= maxClick) {
     containerEl.removeEventListener('click', eventClick);
     addResult();
+    renderChart();
   }
   renderAllPictures();
 }
@@ -105,8 +107,8 @@ function addResult(){
   addElement('h3', 'Results', resultEl);
   var ulEl = addElement ('ul', false, resultEl);
   for (var i = 0; i < allItems.length; i++) {
-    addElement('li', textContent, ulEl);
-    var textContent = allItems[i].name + ' ' + allItems[i].views + ' views ' + allItems[i].votes + ' votes;';
+    var text = `${allItems[i].name} ${allItems[i].views} views ${allItems[i].votes} votes`;
+    addElement('li', text, ulEl);
   }
 }
 
@@ -122,6 +124,87 @@ renderAllPictures();
 // adding event listenar
 containerEl.addEventListener('click', eventClick);
 
+
+
+// Chart
+function renderChart(){
+  var votesArr = [];
+  var namesArr = [];
+
+  for(var i = 0; i < allItems.length; i++){
+    if(allItems[i].votes > 0){
+      votesArr.push(allItems[i].votes);
+      namesArr.push(allItems[i].name);
+    }
+  }
+
+
+  var ctx = canvasEl.getContext('2d');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: namesArr, // names of each object
+          datasets: [{
+              label: '# of Votes',
+              data: votesArr, // number of votes for each object
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)'
+                ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+
+}
 
 
 
