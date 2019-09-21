@@ -42,7 +42,7 @@ header{
   border-radius: 10px;
 }
 .logo a {
-  color: rgb(255, 43, 43);
+  color: rgb(204, 60, 60);
   font-family: 'Pacifico', cursive;
   font-size: 48px;
   border-radius: 10px;
@@ -77,9 +77,17 @@ nav a:hover{
   transform: scale(1.1);
 }
 
+main h2{
+  margin-top: 10px;
+  text-align: center;
+  font-family:'Modak', cursive;
+  font-size: 38px;
+  color: rgb(179, 67, 47);
+}
+
 
 #item-container{
-  width: 795px;
+  width: 800px;
   margin: 20px auto;
   padding: 25px;
   border: 2px solid rgb(188, 185, 202);
@@ -97,9 +105,15 @@ nav a:hover{
 #item-container img:hover{
   transform: scale(1.1);
 }
+#results h2 {
+  margin: auto;
+  width: 60%;
+  background-color: rgb(228, 223, 253);
+  padding: 10px;
+}
 #results h3 {
-  text-align: center;
-  line-height: 1.5;
+text-align: center;
+line-height: 1.5;
 text-transform: uppercase;
 font-family: 'Modak', cursive;
 font-size: 30px;
